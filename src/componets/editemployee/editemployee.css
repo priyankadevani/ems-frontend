@@ -1,0 +1,27 @@
+/* Creates the side-by-side flexbox wrapper */
+.form-row {
+    display: flex;
+    gap: 20px;
+    /* Puts a clean space between the two columns */
+    width: 100%;
+    margin-bottom: 15px;
+    /* Matches your vertical spacing between rows */
+}
+
+/* Forces each form-group column to share the space equally (50% each) */
+.form-row .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* Keeps the label stacked vertically above its input */
+}
+
+/* Ensure the inputs expand to fill their half of the layout container */
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    /* Prevents padding from stretching elements uncontrollably */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

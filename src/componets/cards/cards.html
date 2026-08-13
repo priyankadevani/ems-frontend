@@ -1,0 +1,29 @@
+<div class="card border-0 shadow-sm h-100 stat-card">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <p class="text-muted mb-2">
+                    {{ title() }}
+                </p>
+
+                <h2 class="fw-bold mb-0">
+                    {{ value() }}
+                </h2>
+
+            </div>
+
+            <div class="icon-wrapper" [class]="'bg-' + color()">
+
+                <i class="bi {{ icon() }}"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,170 @@
+<div class="attendance-container">
+
+    <div class="page-header">
+        <h2>Attendance</h2>
+        <p>Track your daily attendance and working hours</p>
+    </div>
+
+    <!-- Today's Attendance Card -->
+    <div class="attendance-card">
+
+        <div class="card-header">
+            <h3>Today's Attendance</h3>
+        </div>
+        <!-- <p>Debug: {{ todayAttendance | json }}</p> -->
+
+        <div *ngIf="todayAttendance; else notCheckedIn" class="card-body">
+
+            <div class="info-grid">
+
+                <div class="info-item">
+                    <label>Date</label>
+                    <span>{{ todayAttendance.date | date:'dd MMM yyyy' }}</span>
+                </div>
+
+                <div class="info-item">
+                    <label>Check In</label>
+                    <span>{{ todayAttendance.checkIn | date:'shortTime' }}</span>
+                </div>
+
+                <div class="info-item">
+                    <label>Check Out</label>
+                    <span>
+                        {{ todayAttendance.checkOut ? (todayAttendance.checkOut | date:'shortTime') : '--' }}
+                    </span>
+                </div>
+
+                <div class="info-item">
+                    <label>Working Hours</label>
+                    <span>{{ todayAttendance.workingHours || 0 }} hrs</span>
+                </div>
+
+                <div class="info-item">
+                    <label>Status</label>
+
+                    <span class="status" [ngClass]="{
+                            'present': todayAttendance.status === 'Present',
+                            'halfday': todayAttendance.status === 'Half Day',
+                            'absent': todayAttendance.status === 'Absent',
+                            'pending': todayAttendance.status === 'Pending'
+                        }">
+
+                        {{ todayAttendance.status }}
+
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="action-btn">
+
+                <button *ngIf="!todayAttendance.checkOut" class="checkout-btn" (click)="checkOut()">
+
+                    Check Out
+
+                </button>
+
+                <button *ngIf="todayAttendance.checkOut" class="completed-btn" disabled>
+
+                    Attendance Completed
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <ng-template #notCheckedIn>
+
+            <div class="empty-state">
+
+                <p>You haven't checked in today.</p>
+
+                <button class="checkin-btn" (click)="checkIn()">
+
+                    Check In
+
+                </button>
+
+            </div>
+
+        </ng-template>
+
+    </div>
+
+    <!-- Attendance History -->
+
+    <div class="history-card">
+
+        <div class="card-header">
+            <h3>Attendance History</h3>
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Date</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Working Hours</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let attendance of attendanceHistory">
+
+                    <td>{{ attendance.date | date:'dd MMM yyyy' }}</td>
+
+                    <td>{{ attendance.checkIn | date:'shortTime' }}</td>
+
+                    <td>
+
+                        {{ attendance.checkOut ? (attendance.checkOut | date:'shortTime') : '--' }}
+
+                    </td>
+
+                    <td>
+
+                        {{ attendance.workingHours || 0 }} hrs
+
+                    </td>
+
+                    <td>
+
+                        <span class="status" [ngClass]="{
+                                'present': attendance.status === 'Present',
+                                'halfday': attendance.status === 'Half Day',
+                                'absent': attendance.status === 'Absent',
+                                'pending': attendance.status === 'Pending'
+                            }">
+
+                            {{ attendance.status }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr *ngIf="attendanceHistory.length === 0">
+
+                    <td colspan="5" class="no-data">
+
+                        No attendance records found.
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

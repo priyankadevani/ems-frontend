@@ -1,0 +1,97 @@
+<div class="sidebar bg-dark text-white d-flex flex-column vh-100 ">
+
+    <div class="logo p-3">
+
+        <h4>EMS</h4>
+
+    </div>
+
+    <hr>
+    <ul class=" sidebar-menu flex-grow-1">
+
+        <li *ngFor="let menu of menus">
+
+            <!-- Normal menu item -->
+            <ng-container *ngIf="!menu.children">
+
+                @if(!menu.permission || permissionService.hasPermission(menu.permission)) {
+
+                <a [routerLink]="menu.route" routerLinkActive="active" class="nav-link">
+                    <span class="menu-left">
+
+                        <i class="bi {{ menu.icon }}"></i>
+
+                        <span>{{ menu.title }}</span>
+
+                    </span>
+                </a>
+
+                }
+
+            </ng-container>
+
+
+            <!-- Dropdown menu -->
+            <ng-container *ngIf="menu.children">
+
+                @if(!menu.permission || permissionService.hasPermission(menu.permission)) {
+
+                <div class="nav-link " (click)="menu.open = !menu.open">
+
+                    <span>
+                        <i class="bi {{menu.icon}}"></i>
+                        {{menu.title}}
+                    </span>
+
+                    <i class="bi" [ngClass]="menu.open ? 'bi-chevron-up' : 'bi-chevron-down'">
+                    </i>
+
+                </div>
+
+
+                <!-- Dropdown children -->
+
+                <ul *ngIf="menu.open" class="submenu">
+
+                    <li *ngFor="let child of menu.children">
+
+                        @if(!child.permission ||
+                        permissionService.hasPermission(child.permission)) {
+
+                        <a [routerLink]="child.route" routerLinkActive="active" class="nav-link submenu-link">
+                            {{child.title}}
+                        </a>
+
+                        }
+
+                    </li>
+
+                </ul>
+                }
+
+            </ng-container>
+        </li>
+
+    </ul>
+    <!-- <ul class="flex-grow-1">
+        <li *ngFor="let menu of menus">
+            @if(!menu.permission || permissionService.hasPermission(menu.permission)) { <a [routerLink]="menu.route"
+                routerLinkActive="active" class="nav-link">
+                <i class="bi {{menu.icon}}"></i>
+                {{menu.title}}
+
+
+            </a>}
+        </li>
+    </ul> -->
+
+    <div class="p-3">
+        <button class="btn btn-danger btn-sm w-100 " (click)="logout()">
+
+            <i class="bi bi-box-arrow-right"></i>
+
+            Logout
+
+        </button>
+    </div>
+</div>

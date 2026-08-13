@@ -1,0 +1,217 @@
+<div class="page-header">
+    @if(attendanceScope === 'team'){
+    <h2>Team Attendance</h2>
+    }
+    @if(attendanceScope === 'organization'){
+    <h2>Organization Attendance</h2>
+    }
+    <p>Monitor today's attendance and attendance history</p>
+
+
+</div>
+
+<div class="attendance-card">
+
+    <div class="card-header">
+        <div>
+            <h3>Today's Attendance</h3>
+            <p>Attendance status of employees today</p>
+        </div>
+
+        <button class="refresh-btn" (click)="loadTodayAttendance()" [disabled]="loadingToday">
+
+            <i class="bi bi-arrow-clockwise"></i>
+            {{ loadingToday ? 'Loading...' : 'Refresh' }}
+
+        </button>
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Working Hours</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngIf="loadingToday">
+                    <td colspan="5" class="message">
+                        Loading attendance...
+                    </td>
+                </tr>
+
+                <tr *ngFor="let attendance of todayAttendance">
+
+                    <td>
+                        <div class="employee-info">
+                            <span>
+                                {{ attendance.employeeId?.firstName }}
+                                {{ attendance.employeeId?.lastName }}
+                            </span>
+                        </div>
+                    </td>
+
+                    <td>
+                        {{ attendance.checkIn
+                        ? (attendance.checkIn | date:'shortTime')
+                        : '--'
+                        }}
+                    </td>
+
+                    <td>
+                        {{ attendance.checkOut
+                        ? (attendance.checkOut | date:'shortTime')
+                        : '--'
+                        }}
+                    </td>
+
+                    <td>
+                        {{ attendance.workingHours || 0 }} hrs
+                    </td>
+
+                    <td>
+                        <span class="status" [ngClass]="{
+                                'present': attendance.status === 'Present',
+                                'halfday': attendance.status === 'Half Day',
+                                'absent': attendance.status === 'Absent',
+                                'pending': attendance.status === 'Pending'
+                            }">
+
+                            {{ attendance.status }}
+
+                        </span>
+                    </td>
+
+                </tr>
+
+                <tr *ngIf="!loadingToday && todayAttendance.length === 0">
+                    <td colspan="5" class="message">
+                        No attendance records found for today.
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- Attendance History -->
+<div class="attendance-card">
+
+    <div class="card-header">
+
+        <div>
+            <h3>Attendance History</h3>
+            <p>Complete attendance history of employees</p>
+        </div>
+
+        <button class="refresh-btn" (click)="loadAttendanceHistory()" [disabled]="loadingHistory">
+
+            <i class="bi bi-arrow-clockwise"></i>
+            {{ loadingHistory ? 'Loading...' : 'Refresh' }}
+
+        </button>
+
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Date</th>
+                    <th>Employee</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Working Hours</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngIf="loadingHistory">
+                    <td colspan="6" class="message">
+                        Loading attendance history...
+                    </td>
+                </tr>
+
+                <tr *ngFor="let attendance of attendanceHistory">
+
+                    <td>
+                        {{ attendance.date | date:'dd MMM yyyy' }}
+                    </td>
+
+                    <td>
+                        {{ attendance.employeeId?.firstName }}
+                        {{ attendance.employeeId?.lastName }}
+                    </td>
+
+                    <td>
+                        {{ attendance.checkIn
+                        ? (attendance.checkIn | date:'shortTime')
+                        : '--'
+                        }}
+                    </td>
+
+                    <td>
+                        {{ attendance.checkOut
+                        ? (attendance.checkOut | date:'shortTime')
+                        : '--'
+                        }}
+                    </td>
+
+                    <td>
+                        {{ attendance.workingHours || 0 }} hrs
+                    </td>
+
+                    <td>
+
+                        <span class="status" [ngClass]="{
+                                'present': attendance.status === 'Present',
+                                'halfday': attendance.status === 'Half Day',
+                                'absent': attendance.status === 'Absent',
+                                'pending': attendance.status === 'Pending'
+                            }">
+
+                            {{ attendance.status }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                <tr *ngIf="
+                    !loadingHistory &&
+                    attendanceHistory.length === 0
+                ">
+
+                    <td colspan="6" class="message">
+                        No attendance history found.
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

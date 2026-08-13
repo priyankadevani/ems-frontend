@@ -1,0 +1,24 @@
+.stat-card {
+    border-radius: 16px;
+    transition: 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+}
+
+.icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+}
+
+.icon-wrapper i {
+    font-size: 24px;
+}

@@ -1,0 +1,76 @@
+<nav class="navbar bg-white shadow-sm">
+
+    <div class="container-fluid">
+
+        <span class="navbar-brand">
+
+            Employee Management System
+
+        </span>
+
+        <div class="d-flex align-items-center gap-3">
+
+
+            <button class="btn btn-light rounded-circle notification-btn">
+                <i class="bi bi-bell"></i>
+            </button>
+
+
+            <div class="dropdown">
+
+                <button class="btn d-flex align-items-center gap-2 border-0" data-bs-toggle="dropdown">
+
+                    <img [src]="currentUser()?.profileImage?.url || '/Default-Profile-Picture.png'" class="profile-img">
+
+                    <div class="text-start">
+
+                        <div class="fw-semibold">
+                            {{currentUser()?.firstName}} {{currentUser()?.lastName}}
+                        </div>
+
+                        <small class="text-muted">
+                            {{currentUser()?.role?.roleName}}
+                        </small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li>
+                        <a class="dropdown-item" [routerLink]="'/profile'">
+                            <i class="bi bi-person me-2"></i>
+                            My Profile
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <i class="bi bi-key me-2"></i>
+                            Change Password
+                        </a>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item text-danger" (click)="logout()">
+                            <i class=" bi bi-box-arrow-right me-2"></i>
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>

@@ -1,0 +1,116 @@
+<app-dashboard-header [user]="user()">
+</app-dashboard-header>
+<div class="container-fluid">
+
+    <div class="row g-4">
+
+        <!-- <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Total Employees</h6>
+                    <h2>{{ dashboardData()?.totalEmployees }}</h2>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-lg-3 col-md-6">
+            <app-cards title="Total Employees" [value]="dashboardData()?.totalEmployees || 0" icon="bi bi-people"
+                color="warning">
+
+            </app-cards>
+        </div>
+
+        <!-- <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Total Departments</h6>
+                    <h2>{{ dashboardData()?.totalDepartments}}</h2>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-lg-3 col-md-6">
+            <app-cards title="Total Departments" [value]="dashboardData()?.totalDepartments || 0" icon="bi bi-diagram-3"
+                color="warning">
+
+            </app-cards>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+            <app-cards title="Total Designations" [value]="dashboardData()?.totalDesignations || 0"
+                icon="bi bi-briefcase" color="warning">
+
+            </app-cards>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+
+            <!-- <h6>Total Roles</h6>
+                    <h2>{{ dashboardData()?.totalRoles}}</h2> -->
+            <app-cards title="Total Roles" [value]="dashboardData()?.totalRoles || 0" icon="bi bi-shield-lock"
+                color="warning">
+
+            </app-cards>
+
+
+        </div>
+
+    </div>
+    <div class="row g-4 mt-2">
+        <div class="col-6">
+            <app-cart-card [chartData]="dashboardData()?.departmentChart ?? []" chartType="doughnut"
+                charttitle="Employees by Department" chartLabel="Employees">
+            </app-cart-card>
+        </div>
+        <div class="col-6">
+            <app-cart-card [chartData]="dashboardData()?.employeeJoinedPerMonth ?? []" chartType="bar"
+                charttitle="Employees Joined Per Month" chartLabel="Employees">
+            </app-cart-card>
+        </div>
+    </div>
+    <div class="card shadow-sm mt-4">
+        <div class="card-header d-flex justify-content-between">
+            <h5 class="mb-0">Latest Employees</h5>
+            <a routerLink="/employees" class="btn btn-primary">View All</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Joining Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let emp of dashboardData()?.recentEmployees">
+
+                        <td>
+                            <img [src]="emp.profileImage?.url || '/Default-Profile-Picture.png'" width="45" height="45"
+                                class="rounded-circle">
+                        </td>
+
+                        <td>{{emp.firstName}} {{emp.lastName}}</td>
+
+                        <td>{{emp.department.name}}</td>
+
+                        <td>{{emp.designation.name}}</td>
+
+                        <td>{{emp.joiningDate | date:'dd MMM yyyy'}}</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-10 col-md-6 col-lg-4">
+            <div class="card shadow-sm p-4 bg-white rounded">
+                <h2 class="text-center mb-4">Login</h2>
+
+
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+
+                        <input type="email" class="form-control" formControlName="email" placeholder="Enter your email">
+
+                        <small class="text-danger"
+                            *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">
+
+                            Email is required
+
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']">
+
+                            Invalid email format
+
+                        </small>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">Password</label>
+
+                        <input type="password" class="form-control" formControlName="password"
+                            placeholder="Enter your password">
+
+                        <small class="text-danger"
+                            *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">
+
+                            Password is required
+
+                        </small>
+
+                    </div>
+
+                    <div class="alert alert-danger" *ngIf="serverError()">
+
+                        {{ serverError() }}
+
+                    </div>
+
+                    <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid">
+
+                        Login
+
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

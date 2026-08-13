@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="d-flex justify-content-between ">
+        <h5>Create Designation </h5>
+    </div>
+    <div class="shadow-sm border bg-white p-3 mb-3 mt-2 " style="width: 60%;">
+        @if(serverError()){
+        <div class="alert alert-danger">{{serverError()}}</div>
+        }
+        <form [formGroup]="designationForm" (ngSubmit)="onSubmit()">
+            <div class="form-group row mb-2">
+                <label for="name" class="col-md-2 col-form-label">Name</label>
+                <div class="col-md-10">
+                    <input type="text" formControlName="name" id="name" placeholder="Enter designation name"
+                        class="form-control">
+                    @let name=designationForm.get('name');
+                    @if(name?.touched){
+                    @if(name?.hasError('required')){
+                    <span class="text-danger">name is required</span>
+                    }
+                    @if(name?.hasError('minlength')){
+                    <span class="text-danger">name is too short</span>
+                    }
+                    @if(name?.hasError('server')){
+                    <span class="text-danger">{{name?.getError('server')}}</span>
+                    }
+                    }
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-md-2 col-form-label">description</label>
+                <div class="col-md-10">
+                    <textarea type="text" formControlName="description" id="description" class="form-control" rows="3">
+
+                    </textarea>
+                    @let description=designationForm.get('description');
+                    @if(description?.touched){
+                    @if(description?.hasError('maxlength')){
+                    <span class="text-danger">name is too long</span>
+                    }
+                    }
+                </div>
+            </div>
+
+
+            <div class="form-row d-flex mt-5 gap-2">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="form-group ">
+
+                    <button type="button" (click)="onCancel()" class="btn btn-danger">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+</div>

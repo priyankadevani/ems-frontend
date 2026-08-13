@@ -1,0 +1,46 @@
+.sidebar {
+
+    width: 260px;
+
+    min-height: 100vh;
+
+    position: fixed;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.nav-link>span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-link i {
+    margin-right: 8px;
+}
+
+.submenu {
+    list-style: none;
+    padding-left: 45px;
+    margin: 0;
+}
+
+.submenu-link {
+    font-size: 14px;
+    padding: 8px 10px;
+}
+
+.submenu-link.active {
+    font-weight: 600;
+}

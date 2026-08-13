@@ -1,0 +1,199 @@
+.attendance-container {
+    padding: 20px;
+}
+
+/* Header */
+
+.page-header {
+    margin-bottom: 20px;
+}
+
+.page-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 28px;
+}
+
+.page-header p {
+    margin-top: 5px;
+    color: #6c757d;
+}
+
+/* Cards */
+
+.attendance-card,
+.history-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.card-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+}
+
+.card-header h3 {
+    margin: 0;
+    color: #34495e;
+}
+
+/* Today's Attendance */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item label {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.info-item span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Buttons */
+
+.action-btn {
+    margin-top: 30px;
+}
+
+.checkin-btn,
+.checkout-btn,
+.completed-btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.checkin-btn {
+    background: #28a745;
+    color: white;
+}
+
+.checkin-btn:hover {
+    background: #218838;
+}
+
+.checkout-btn {
+    background: #007bff;
+    color: white;
+}
+
+.checkout-btn:hover {
+    background: #0069d9;
+}
+
+.completed-btn {
+    background: #6c757d;
+    color: white;
+    cursor: not-allowed;
+}
+
+/* Status Badges */
+
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.present {
+    background: #d4edda;
+    color: #155724;
+}
+
+.halfday {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.absent {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.pending {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Empty State */
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-state p {
+    margin-bottom: 20px;
+    color: #6c757d;
+}
+
+/* History Table */
+
+.history-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-card th,
+.history-card td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.history-card th {
+    background: #f8f9fa;
+    color: #495057;
+}
+
+.history-card tbody tr:hover {
+    background: #f9f9f9;
+}
+
+.no-data {
+    text-align: center;
+    color: #888;
+    padding: 20px;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .history-card {
+        overflow-x: auto;
+    }
+
+    .history-card table {
+        min-width: 700px;
+    }
+
+}

@@ -1,0 +1,82 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between">
+        <h5>Existing Roles</h5>
+        <button type="button" class="btn btn-primary" matButton="filled"
+            *ngIf="permissionService.hasPermission('role.create')" [routerLink]="'create'"><i
+                class="bi bi-plus"></i>Create Role</button>
+    </div>
+
+    <!-- <h5>Role Management</h5>
+
+    <form [formGroup]="roleForm" (ngSubmit)="createRole()">
+
+        <div class="mb-3">
+            <label>Role Name</label>
+            <input type="text" class="form-control" formControlName="roleName">
+        </div>
+
+        <div class="mb-3">
+            <label class="d-block">Permissions</label>
+            <div *ngFor="let group of groupedPermissions | keyvalue" class="mb-4">
+                <h5>{{ group.key | titlecase }}</h5>
+                <div *ngFor="let permission of group.value" class="form-check">
+                    <input type="checkbox" [value]="permission._id" (change)="onCheckboxChange($event, permission._id)"
+                        class="form-check-input">
+
+                    <label class="form-check-label">
+                        {{ permission.name.split(".")[1] | titlecase }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Create Role
+        </button>
+
+    </form>
+
+    <hr> -->
+
+    <!-- <h3>Existing Roles</h3> -->
+    <!-- <div class="d-flex w-50 justify-content-between mt-2">
+        <div class="shadow-sm border bg-white p-3 mb-3 mt-2 d-flex align-items-center">
+            <tr *ngFor="let role of roles">
+                <td style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>{{role.roleName}}</span>
+                    <div>
+                        <button (click)="editRole(role._id)" mat-icon-button>
+                            <mat-icon class="text-warning">edit</mat-icon>
+                        </button>
+                        <button (click)="deleteRole(role._id)" mat-icon-button>
+                            <mat-icon class="text-danger">delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+
+            </tr>
+        </div>
+    </div> -->
+</div>
+<table class="table table-bordered shadow-sm border bg-white p-3 mb-3 mt-2"
+    style="margin-left: 10px;margin-right: 10px;width: 98%;">
+
+    <tbody>
+
+        <tr *ngFor="let role of roles">
+            <td style="display: flex; justify-content: space-between; align-items: center;">
+                <span>{{role.roleName}}</span>
+                <div class="ms-auto d-flex justify-content-between" style="width:70px">
+                    <button (click)="editRole(role._id)" mat-icon-button>
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button (click)="deleteRole(role._id)" mat-icon-button>
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>

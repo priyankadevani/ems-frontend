@@ -1,0 +1,234 @@
+<div class="container">
+    <div class="d-flex justify-content-between ">
+        <h5>Edit Employee </h5>
+        <button type="button" class="btn btn-primary" matButton="filled"
+            *ngIf="permissionService.hasPermission('employee.read')" [routerLink]="'/employees'">
+            Back To employeelist</button>
+    </div>
+
+    <div class="shadow-sm border bg-white p-3 mb-3 mt-2 " style="width: 60%;">
+        @if(serverError()){
+        <div class="alert alert-danger">{{serverError()}}</div>
+        }
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+            <div class="form-row ">
+                <div class="form-group col-md-6">
+                    <label for="name">First Name</label>
+                    <input type="text" formControlName="firstName" id="firstName" placeholder="Enter your first name"
+                        required>
+                    @let fname = editForm.get('firstName');
+                    @if(fname?.touched){
+                    @if(fname?.hasError('required')){
+                    <span class="text-danger">Firstname is required</span>
+                    }
+                    @if(fname?.hasError('minlength')){
+                    <span class="text-danger">Firstname is too short</span>
+                    }
+
+                    }
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="name">Last Name</label>
+                    <input type="text" formControlName="lastName" id="lastName" placeholder="Enter your last name"
+                        required>
+                    @let lname = editForm.get('lastName');
+                    @if(lname?.touched){
+                    @if(lname?.hasError('required')){
+                    <span class="text-danger">Lastname is required</span>
+                    }
+
+                    }
+                </div>
+            </div>
+            <!-- <div class="form-row" style="width: fit-content;">
+                <div class="form-group">
+                    <label for="name">First Name</label>
+                    <input type="text" formControlName="firstName" id="firstName" placeholder="Enter your first name"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Last Name</label>
+                    <input type="text" formControlName="lastName" id="lastName" placeholder="Enter your last name"
+                        required>
+                </div>
+            </div> -->
+            <div class="form-row ">
+                <div class="form-group col-md-6">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" formControlName="email" name="email" id="email"
+                        placeholder="name@example.com" required>
+                    @let email = editForm.get('email');
+                    @if(email?.touched){
+                    @if(email?.hasError('required')){
+                    <span class="text-danger">Email is required</span>
+                    }
+                    @if(email?.hasError('pattern')){
+                    <span class="text-danger">Invalid Email</span>
+                    }
+                    @if(email?.hasError('server')){
+                    <span class="text-danger">{{email?.getError('server')}}</span>
+                    }
+                    }
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" formControlName="phone" name="phone" id="phone"
+                        placeholder="Enter phone number" required>
+                    @let phone = editForm.get('phone');
+                    @if(phone?.touched){
+                    @if(phone?.hasError('required')){
+                    <span class="text-danger">Phone number is required</span>
+                    }
+                    @if(phone?.hasError('minlength')){
+                    <span class="text-danger">Phone number must be at least 10 digits</span>
+                    }
+                    }
+                </div>
+            </div>
+            <!-- <div class="form-row" style="width: fit-content;">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" formControlName="email" name="email" id="email"
+                        placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" formControlName="phone" name="phone" id="phone"
+                        placeholder="Enter phone number" required>
+                </div>
+            </div> -->
+            <div class="form-row ">
+                <div class="form-group col-md-4">
+                    <label for="phone" class="form-label">Department</label>
+                    <!-- <input type="text" class="form-control" formControlName="department" name="department"
+                        id="department" placeholder="Enter department" required> -->
+                    <select name="department" class="form-select" formControlName="department">
+                        @for(department of departments; track department._id){
+                        <option [value]="department._id">{{department.name}}</option>
+                        }
+                    </select>
+                    @let department = editForm.get('department');
+                    @if(department?.touched){
+                    @if(department?.hasError('required')){
+                    <span class="text-danger">Department is required</span>
+                    }
+                    }
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="designation" class="form-label">Designation</label>
+                    <!-- <input type="text" class="form-control" formControlName="designation" name="designation"
+                        id="designation" placeholder="Enter designation" required> -->
+                    <select name="designation" class="form-select" formControlName="designation">
+                        @for(designation of designations; track designation._id){
+                        <option [value]="designation._id">{{designation.name}}</option>
+                        }
+                    </select>
+                    @let designation = editForm.get('designation');
+                    @if(designation?.touched){
+                    @if(designation?.hasError('required')){
+                    <span class="text-danger">Designation is required</span>
+                    }
+                    }
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role" class="form-select" formControlName="role">
+                        @for(role of roles; track role._id){
+
+                        <option [value]="role._id">{{role.roleName}}</option>
+                        }
+                    </select>
+                    @let role = editForm.get('role');
+                    @if(role?.touched){
+                    @if(role?.hasError('required')){
+                    <span class="text-danger">Role is required</span>
+                    }
+                    }
+                </div>
+            </div>
+            <!-- <div class="form-row" style="width: fit-content;">
+                <div class="form-group">
+                    <label for="phone" class="form-label">Department</label>
+                    <input type="text" class="form-control" formControlName="department" name="department"
+                        id="department" placeholder="Enter department" required>
+                </div>
+                <div class="form-group">
+                    <label for="designation" class="form-label">Designation</label>
+                    <input type="text" class="form-control" formControlName="designation" name="designation"
+                        id="designation" placeholder="Enter designation" required>
+                </div>
+                 <p><input type="text" class="form-control" formControlName="role" name="role" id="role" required></p> -->
+            <!-- <div class="form-group"> 
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role" class="form-select" formControlName="role">
+                        @for(role of roles; track role._id){
+                        <option [value]="role._id">{{role.roleName}}</option>
+                        }
+                    </select>
+                </div>
+            </div> -->
+            <!-- <div class="form-row" style="width: fit-content;">
+                <div class="form-group">
+                    <label for="joiningDate" class="form-label">Joining Date</label>
+                    <input type="date" class="form-control" formControlName="joiningDate" name="joiningDate"
+                        id="joiningDate" placeholder="Enter joining date" required>
+                </div>
+                <div class="form-group">
+                    <label for="salary" class="form-label">Salary</label>
+                    <input type="text" class="form-control" formControlName="salary" name="Salary" id="Salary"
+                        placeholder="Enter Salary" required>
+                </div>
+            </div> -->
+            <div class="form-row ">
+                <div class="form-group col-md-4">
+                    <label for="joiningDate" class="form-label">Joining Date</label>
+                    <input type="date" class="form-control" formControlName="joiningDate" name="joiningDate"
+                        id="joiningDate" placeholder="Enter joining date" required>
+                    @let joiningDate = editForm.get('joiningDate');
+                    @if(joiningDate?.touched){
+                    @if(joiningDate?.hasError('required')){
+                    <span class="text-danger">Joining Date is required</span>
+                    }
+                    }
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="salary" class="form-label">Salary</label>
+                    <input type="text" class="form-control" formControlName="salary" name="Salary" id="Salary"
+                        placeholder="Enter Salary" required>
+                    @let salary = editForm.get('salary');
+                    @if(salary?.touched){
+                    @if(salary?.hasError('required')){
+                    <span class="text-danger">Salary is required</span>
+                    }
+                    }
+                </div>
+            </div>
+            <div class="form-row ">
+                <div class="form-group col-md-6">
+                    <label for="phone" class="form-label">Select File</label>
+                    <input type="file" class="form-control" #fileInput (change)="onFileSelected($event)">
+
+                </div>
+                <div class="form-group col-md-6">
+                    @if(imagePrev()){
+                    <img alt="Customer Image" [src]="imagePrev()" style="width: min-content;" />
+                    }
+                </div>
+            </div>
+
+
+            <div class="form-row d-flex " style="width: fit-content">
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="form-group ">
+
+                    <button type="button" (click)="onClick()" class="btn btn-danger">Cancel</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

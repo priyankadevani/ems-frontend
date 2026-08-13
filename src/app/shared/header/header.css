@@ -1,0 +1,32 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 260px;
+    right: 0;
+    height: 60px;
+    z-index: 1000;
+    padding: 0 20px;
+    width: calc(100% - 260px);
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.profile-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.notification-btn {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
